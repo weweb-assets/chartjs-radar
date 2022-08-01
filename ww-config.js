@@ -11,6 +11,25 @@ export default {
   editor: {
     label: "Chart - Radar",
     icon: "fontawesome/solid/chart-area",
+    customStylePropertiesOrder: [
+      ['isLegend', 'legendPosition', 'legendAlignement', 'legendSize', 'legendColor'],
+    ],
+    customSettingsPropertiesOrder: [
+        'dataType',
+        ['labels', 'datasets'],
+        'data',
+        'dataError',
+        [
+            'xAxisTitle',
+            'dataXField',
+            'dataXFieldProperty',
+            'dataOrderBy',
+            'dataDirection',
+            'dataXEmpty',
+        ],
+        ['yAxis', 'dataYField', 'dataYFieldProperty', 'aggregate'],
+        ['colors'],
+    ],
   },
   properties: {
     isLegend: {
@@ -352,6 +371,7 @@ export default {
       type: "Array",
       section: "settings",
       options: {
+        expandable: true,
         item: {
           type: "Color",
         },
