@@ -17,6 +17,32 @@ export default {
     return this.chartInstance;
   },
   computed: {
+    options() {
+      const guidedOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: this.content.isLegend,
+            position: this.content.legendPosition,
+            align: this.content.legendAlignement,
+            labels: {
+              usePointStyle: true,
+              color: this.content.legendColor,
+              font: { size: parseInt(this.content.legendSize) },
+            },
+          },
+        },
+      };
+
+      const advancedOptions =
+        typeof this.content.options === "object"
+          ? this.content.options
+          : guidedOptions;
+      return this.content.dataType === "advanced"
+        ? advancedOptions
+        : guidedOptions;
+    },
     config() {
       let labels = [];
       let datasets = [];
@@ -159,22 +185,7 @@ export default {
           labels,
           datasets,
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: this.content.isLegend,
-              position: this.content.legendPosition,
-              align: this.content.legendAlignement,
-              labels: {
-                usePointStyle: true,
-                color: this.content.legendColor,
-                font: { size: parseInt(this.content.legendSize) },
-              },
-            },
-          },
-        },
+        options: this.options,
       };
     },
   },
@@ -184,6 +195,16 @@ export default {
       if (this.chartInstance) this.chartInstance.destroy();
       this.initChart();
       this.chartInstance.update();
+    },
+    options: {
+      deep: true,
+      handler() {
+        console.log(this.options);
+        this.chartInstance.data.datasets = this.config.data.datasets;
+        if (this.chartInstance) this.chartInstance.destroy();
+        this.initChart();
+        this.chartInstance.update();
+      },
     },
     "config.data.labels"() {
       this.chartInstance.data.labels = this.config.data.labels;

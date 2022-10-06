@@ -12,23 +12,29 @@ export default {
     label: "Chart - Radar",
     icon: "fontawesome/solid/chart-area",
     customStylePropertiesOrder: [
-      ['isLegend', 'legendPosition', 'legendAlignement', 'legendSize', 'legendColor'],
+      [
+        "isLegend",
+        "legendPosition",
+        "legendAlignement",
+        "legendSize",
+        "legendColor",
+      ],
     ],
     customSettingsPropertiesOrder: [
-        'dataType',
-        ['labels', 'datasets'],
-        'data',
-        'dataError',
-        [
-            'xAxisTitle',
-            'dataXField',
-            'dataXFieldProperty',
-            'dataOrderBy',
-            'dataDirection',
-            'dataXEmpty',
-        ],
-        ['yAxis', 'dataYField', 'dataYFieldProperty', 'aggregate'],
-        ['colors'],
+      "dataType",
+      ["labels", "datasets", "options"],
+      "data",
+      "dataError",
+      [
+        "xAxisTitle",
+        "dataXField",
+        "dataXFieldProperty",
+        "dataOrderBy",
+        "dataDirection",
+        "dataXEmpty",
+      ],
+      ["yAxis", "dataYField", "dataYFieldProperty", "aggregate"],
+      ["colors"],
     ],
   },
   properties: {
@@ -121,6 +127,32 @@ export default {
           data: [100.0, 5.0, 70.0, 20.0],
         },
       ],
+      hidden: (content) => content.dataType !== "advanced",
+    },
+    options: {
+      label: "Options",
+      type: "Info",
+      options: {
+        text: "Chart options",
+      },
+      responsive: true,
+      section: "settings",
+      bindable: "list",
+      defaultValue: {
+        plugins: {
+          legend: {
+            display: true,
+            position: "left",
+            align: "start",
+            labels: {
+              usePointStyle: true,
+              color: "black",
+              font: { size: 12 },
+            },
+          },
+        },
+        responsive: true,
+      },
       hidden: (content) => content.dataType !== "advanced",
     },
     data: {
