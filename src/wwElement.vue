@@ -199,7 +199,6 @@ export default {
     options: {
       deep: true,
       handler() {
-        console.log(this.options);
         this.chartInstance.data.datasets = this.config.data.datasets;
         if (this.chartInstance) this.chartInstance.destroy();
         this.initChart();
