@@ -32,6 +32,7 @@ export default {
             type: "OnOff",
             bindable: true,
             responsive: true,
+            states: true,
             defaultValue: true,
             hidden: (content) => content.dataType === "advanced",
             /* wwEditor:start */
@@ -54,6 +55,7 @@ export default {
             },
             bindable: true,
             responsive: true,
+            states: true,
             defaultValue: "top",
             hidden: (content) => content.dataType === "advanced" || !content.isLegend,
             /* wwEditor:start */
@@ -75,6 +77,7 @@ export default {
             },
             bindable: true,
             responsive: true,
+            states: true,
             defaultValue: "center",
             hidden: (content) => content.dataType === "advanced" || !content.isLegend,
             /* wwEditor:start */
@@ -90,6 +93,9 @@ export default {
             options: {
                 unitChoices: [{ value: "px", label: "px", min: 0, max: 50 }],
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             defaultValue: "12px",
             hidden: (content) => content.dataType === "advanced" || !content.isLegend,
         },
@@ -97,6 +103,9 @@ export default {
             label: "Color",
             type: "Color",
             options: { nullable: true },
+            bindable: true,
+            responsive: true,
+            states: true,
             hidden: (content) => content.dataType === "advanced" || !content.isLegend,
         },
         dataType: {
@@ -108,6 +117,9 @@ export default {
                     { value: "advanced", label: "Advanced" },
                 ],
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             section: "settings",
             defaultValue: "advanced",
         },
@@ -115,9 +127,10 @@ export default {
             label: "Labels",
             type: "Info",
             options: { text: "Chart labels" },
-            responsive: true,
             section: "settings",
             bindable: "list",
+            responsive: true,
+            states: true,
             defaultValue: ["Tatooine", "Coruscant", "Kashyyyk", "Dagobah"],
             hidden: (content) => content.dataType !== "advanced",
             /* wwEditor:start */
@@ -131,9 +144,10 @@ export default {
             label: "Datasets",
             type: "Info",
             options: { text: "Chart Datasets" },
-            responsive: true,
             section: "settings",
             bindable: "list",
+            responsive: true,
+            states: true,
             defaultValue: [
                 {
                     label: "Millenium Falcon",
@@ -155,9 +169,10 @@ export default {
             options: {
                 text: "Chart options",
             },
-            responsive: true,
             section: "settings",
             bindable: "list",
+            responsive: true,
+            states: true,
             defaultValue: {
                 plugins: {
                     legend: {
@@ -181,9 +196,10 @@ export default {
             options: {
                 text: "Bind collection data",
             },
-            responsive: true,
             section: "settings",
             bindable: "list",
+            responsive: true,
+            states: true,
             defaultValue: null,
             hidden: (content) => content.dataType !== "guided",
             /* wwEditor:start */
@@ -204,6 +220,9 @@ export default {
         xAxisTitle: {
             label: "Categories field",
             section: "settings",
+            bindable: true,
+            responsive: true,
+            states: true,
             hidden: (content) => !(content.dataType === "guided" && isDataValid(content.data) && isDataArrayObject(content.data)),
         },
         dataXField: {
@@ -214,6 +233,9 @@ export default {
                 if (!Array.isArray(data) || !data[0]) return null;
                 return { object: data[0] };
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             section: "settings",
             defaultValue: null,
             hidden: (content) => !(content.dataType === "guided" && isDataValid(content.data) && isDataArrayObject(content.data)),
@@ -227,6 +249,9 @@ export default {
                 const field = _.get(data[0], content.dataXField);
                 return !Array.isArray(field) || !field.length ? null : { object: field[0] };
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             defaultValue: null,
             section: "settings",
             hidden: (content) => {
@@ -246,6 +271,9 @@ export default {
                     { value: "y", label: "Y" },
                 ],
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             section: "settings",
             defaultValue: "default",
             hidden: (content) => !(content.dataType === "guided" && isDataValid(content.data)),
@@ -258,6 +286,9 @@ export default {
                     { value: "DESC", label: "Descending" },
                 ],
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             section: "settings",
             defaultValue: "ASC",
             hidden: (content) => !(content.dataType === "guided" && content.dataOrderBy !== "default" && isDataValid(content.data)),
@@ -265,6 +296,9 @@ export default {
         dataXEmpty: {
             label: "Include empty values",
             type: "OnOff",
+            bindable: true,
+            responsive: true,
+            states: true,
             section: "settings",
             defaultValue: false,
             hidden: (content) => !(content.dataType === "guided" && isDataValid(content.data)),
@@ -282,6 +316,9 @@ export default {
                     },
                 ],
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             section: "settings",
             defaultValue: "item-count",
             hidden: (content) => !(content.dataType === "guided" && isDataValid(content.data) && isDataArrayObject(content.data)),
@@ -294,6 +331,9 @@ export default {
                 if (!Array.isArray(data) || !data[0]) return null;
                 return { object: data[0] };
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             section: "settings",
             defaultValue: null,
             hidden: (content) => !(content.dataType === "guided" && content.yAxis === "field-summary" && isDataValid(content.data) && isDataArrayObject(content.data)),
@@ -307,6 +347,9 @@ export default {
                 const field = _.get(data[0], content.dataYField);
                 return !Array.isArray(field) || !field.length ? null : { object: field[0] };
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             defaultValue: null,
             section: "settings",
             hidden: (content) => {
@@ -338,6 +381,9 @@ export default {
                     ].filter(Boolean),
                 };
             },
+            bindable: true,
+            responsive: true,
+            states: true,
             section: "settings",
             defaultValue: "distinct",
             hidden: (content) => !(content.dataType === "guided" && content.yAxis === "field-summary" && isDataValid(content.data) && isDataArrayObject(content.data)),
@@ -355,8 +401,10 @@ export default {
                     return `Color ${index + 1}`;
                 },
             },
-            defaultValue: [],
             bindable: true,
+            responsive: true,
+            states: true,
+            defaultValue: [],
             hidden: (content) => !(content.dataType === "guided" && isDataValid(content.data)),
             /* wwEditor:start */
             bindingValidation: {
