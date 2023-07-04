@@ -33,6 +33,7 @@ export default {
             bindable: true,
             responsive: true,
             states: true,
+            classes: true,
             defaultValue: true,
             hidden: (content) => content.dataType === "advanced",
             /* wwEditor:start */
@@ -56,6 +57,7 @@ export default {
             bindable: true,
             responsive: true,
             states: true,
+            classes: true,
             defaultValue: "top",
             hidden: (content) => content.dataType === "advanced" || !content.isLegend,
             /* wwEditor:start */
@@ -78,6 +80,7 @@ export default {
             bindable: true,
             responsive: true,
             states: true,
+            classes: true,
             defaultValue: "center",
             hidden: (content) => content.dataType === "advanced" || !content.isLegend,
             /* wwEditor:start */
@@ -96,7 +99,7 @@ export default {
             bindable: true,
             responsive: true,
             states: true,
-            defaultValue: "12px",
+            classes: true,
             hidden: (content) => content.dataType === "advanced" || !content.isLegend,
         },
         legendColor: {
@@ -106,6 +109,7 @@ export default {
             bindable: true,
             responsive: true,
             states: true,
+            classes: true,
             hidden: (content) => content.dataType === "advanced" || !content.isLegend,
         },
         dataType: {
