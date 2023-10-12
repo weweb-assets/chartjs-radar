@@ -26,6 +26,13 @@ export default {
             ["colors"],
         ],
     },
+    triggerEvents: [
+        {
+            name: 'chart:click',
+            label: { en: 'On chart click' },
+            event: { dataX: null, dataY: null, position: { x: 0, y: 0 } },
+        },
+    ],
     properties: {
         isLegend: {
             label: "Legend",
