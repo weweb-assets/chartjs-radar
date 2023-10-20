@@ -30,7 +30,10 @@ export default {
         {
             name: 'chart:click',
             label: { en: 'On chart click' },
-            event: { dataX: null, dataY: null, position: { x: 0, y: 0 } },
+            event: {
+                position: { x: 0, y: 0 },
+                points: [{ label: '', value: 0, index: 0, datasetIndex: 0 }],
+            },
         },
     ],
     properties: {
