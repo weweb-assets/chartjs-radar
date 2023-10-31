@@ -192,7 +192,7 @@ export default {
               const position = getRelativePosition(e, this.chartInstance);
               const points = this.chartInstance.getElementsAtEventForMode(
                   e,
-                  'nearest',
+                  this.config.options.interaction || 'nearest',
                   { intersect: true },
                   true
               );
@@ -202,10 +202,13 @@ export default {
                   event: {
                       position,
                       points: points.map(point => ({
-                          label: this.chartInstance.data.labels[point.index],
-                          value: this.chartInstance.data.datasets[point.datasetIndex].data[point.index],
-                          ...point,
-                      })),
+                        datasetLabel: this.chartInstance.data.datasets[point.datasetIndex].label
+                        label: this.chartInstance.data.labels[point.index],
+                        value: typeof this.chartInstance.data.datasets[point.datasetIndex].data[point.index] === 'object' ?
+                            this.chartInstance.data.datasets[point.datasetIndex].data[point.index][this.content.axis === 'x' ? 'y' : 'x'] :
+                            this.chartInstance.data.datasets[point.datasetIndex].data[point.index],
+                        ...point,
+                    })),
                   },
               });
           },
