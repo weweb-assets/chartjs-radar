@@ -192,25 +192,30 @@ export default {
               const position = getRelativePosition(e, this.chartInstance);
               const points = this.chartInstance.getElementsAtEventForMode(
                   e,
-                  this.config.options.interaction || 'nearest',
-                  { intersect: true },
+                  this.options?.interaction?.mode || 'nearest',
+                  { intersect: this.options?.interaction?.intersect ?? true },
                   true
               );
 
               this.$emit('trigger-event', {
-                  name: 'chart:click',
-                  event: {
-                      position,
-                      points: points.map(point => ({
-                        datasetLabel: this.chartInstance.data.datasets[point.datasetIndex].label,
-                        label: this.chartInstance.data.labels[point.index],
-                        value: typeof this.chartInstance.data.datasets[point.datasetIndex].data[point.index] === 'object' ?
-                            this.chartInstance.data.datasets[point.datasetIndex].data[point.index][this.content.axis === 'x' ? 'y' : 'x'] :
-                            this.chartInstance.data.datasets[point.datasetIndex].data[point.index],
-                        ...point,
-                    })),
-                  },
-              });
+                            name: 'chart:click',
+                            event: {
+                                position,
+                                points: points.map(point => ({
+                                    datasetLabel: this.chartInstance.data.datasets[point.datasetIndex].label,
+                                    label: this.chartInstance.data.labels[point.index],
+                                    value:
+                                        typeof this.chartInstance.data.datasets[point.datasetIndex].data[
+                                            point.index
+                                        ] === 'object'
+                                            ? this.chartInstance.data.datasets[point.datasetIndex].data[point.index][
+                                                  this.content.axis === 'x' ? 'y' : 'x'
+                                              ]
+                                            : this.chartInstance.data.datasets[point.datasetIndex].data[point.index],
+                                    ...point,
+                                })),
+                            },
+                        });
           },
         },
       };
