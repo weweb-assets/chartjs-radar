@@ -208,9 +208,7 @@ export default {
                                         typeof this.chartInstance.data.datasets[point.datasetIndex].data[
                                             point.index
                                         ] === 'object'
-                                            ? this.chartInstance.data.datasets[point.datasetIndex].data[point.index][
-                                                  this.content.axis === 'x' ? 'y' : 'x'
-                                              ]
+                                            ? this.chartInstance.data.datasets[point.datasetIndex].data[point.index]['y']
                                             : this.chartInstance.data.datasets[point.datasetIndex].data[point.index],
                                     ...point,
                                 })),
