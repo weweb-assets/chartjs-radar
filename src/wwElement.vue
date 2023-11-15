@@ -6,6 +6,7 @@
 
 <script>
 import { Chart, registerables } from "chart.js";
+import { getRelativePosition } from 'chart.js/helpers';
 Chart.register(...registerables);
 
 export default {
@@ -185,7 +186,36 @@ export default {
           labels,
           datasets,
         },
-        options: this.options,
+        options: {
+            ...this.options,
+            onClick: e => {
+              const position = getRelativePosition(e, this.chartInstance);
+              const points = this.chartInstance.getElementsAtEventForMode(
+                  e,
+                  this.options?.interaction?.mode || 'nearest',
+                  { intersect: this.options?.interaction?.intersect ?? true },
+                  true
+              );
+
+              this.$emit('trigger-event', {
+                            name: 'chart:click',
+                            event: {
+                                position,
+                                points: points.map(point => ({
+                                    datasetLabel: this.chartInstance.data.datasets[point.datasetIndex].label,
+                                    label: this.chartInstance.data.labels[point.index],
+                                    value:
+                                        typeof this.chartInstance.data.datasets[point.datasetIndex].data[
+                                            point.index
+                                        ] === 'object'
+                                            ? this.chartInstance.data.datasets[point.datasetIndex].data[point.index]['y']
+                                            : this.chartInstance.data.datasets[point.datasetIndex].data[point.index],
+                                    ...point,
+                                })),
+                            },
+                        });
+          },
+        },
       };
     },
   },
