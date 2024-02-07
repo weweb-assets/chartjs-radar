@@ -6,7 +6,7 @@
 
 <script>
 import { Chart, registerables } from "chart.js";
-import { getRelativePosition } from 'chart.js/helpers';
+import { getRelativePosition } from "chart.js/helpers";
 Chart.register(...registerables);
 
 export default {
@@ -29,7 +29,9 @@ export default {
             align: this.content.legendAlignement,
             labels: {
               usePointStyle: true,
-              color: wwLib.getStyleFromToken(this.content.legendColor) || this.content.legendColor,
+              color:
+                wwLib.getStyleFromToken(this.content.legendColor) ||
+                this.content.legendColor,
               font: { size: parseInt(this.content.legendSize) },
             },
           },
@@ -64,7 +66,9 @@ export default {
         let dataYFieldProperty = this.content.dataYFieldProperty;
         let aggregate =
           yAxis === "item-count" ? "item-count" : this.content.aggregate;
-        const colors = this.content.colors;
+        const colors = this.content.colors.map(
+          (color) => wwLib.getStyleFromToken(color) || color
+        );
 
         if (typeof data[0] !== "object") {
           data = data.map((value) => ({ value }));
@@ -187,33 +191,35 @@ export default {
           datasets,
         },
         options: {
-            ...this.options,
-            onClick: e => {
-              const position = getRelativePosition(e, this.chartInstance);
-              const points = this.chartInstance.getElementsAtEventForMode(
-                  e,
-                  this.options?.interaction?.mode || 'nearest',
-                  { intersect: this.options?.interaction?.intersect ?? true },
-                  true
-              );
+          ...this.options,
+          onClick: (e) => {
+            const position = getRelativePosition(e, this.chartInstance);
+            const points = this.chartInstance.getElementsAtEventForMode(
+              e,
+              this.options?.interaction?.mode || "nearest",
+              { intersect: this.options?.interaction?.intersect ?? true },
+              true
+            );
 
-              this.$emit('trigger-event', {
-                            name: 'chart:click',
-                            event: {
-                                position,
-                                points: points.map(point => ({
-                                    datasetLabel: this.chartInstance.data.datasets[point.datasetIndex].label,
-                                    label: this.chartInstance.data.labels[point.index],
-                                    value:
-                                        typeof this.chartInstance.data.datasets[point.datasetIndex].data[
-                                            point.index
-                                        ] === 'object'
-                                            ? this.chartInstance.data.datasets[point.datasetIndex].data[point.index]['y']
-                                            : this.chartInstance.data.datasets[point.datasetIndex].data[point.index],
-                                    ...point,
-                                })),
-                            },
-                        });
+            this.$emit("trigger-event", {
+              name: "chart:click",
+              event: {
+                position,
+                points: points.map((point) => ({
+                  datasetLabel:
+                    this.chartInstance.data.datasets[point.datasetIndex].label,
+                  label: this.chartInstance.data.labels[point.index],
+                  value:
+                    typeof this.chartInstance.data.datasets[point.datasetIndex]
+                      .data[point.index] === "object"
+                      ? this.chartInstance.data.datasets[point.datasetIndex]
+                          .data[point.index]["y"]
+                      : this.chartInstance.data.datasets[point.datasetIndex]
+                          .data[point.index],
+                  ...point,
+                })),
+              },
+            });
           },
         },
       };
@@ -255,7 +261,8 @@ export default {
     },
     "content.legendColor"() {
       this.chartInstance.options.plugins.legend.labels.color =
-      wwLib.getStyleFromToken(this.content.legendColor) || this.content.legendColor;
+        wwLib.getStyleFromToken(this.content.legendColor) ||
+        this.content.legendColor;
       this.chartInstance.update();
     },
     "content.legendSize"() {
