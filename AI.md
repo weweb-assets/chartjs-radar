@@ -24,11 +24,10 @@ Properties:
 - legendAlignement: 'start' | 'center' | 'end' - Legend alignment. Default: "center"
 - legendSize: number - Legend font size in pixels. Default: 12
 - legendColor: string | null - Legend label color. Default: null
-- dataType: 'guided' | 'advanced' - Data input mode. Default: "advanced"
-- labels: string[] - Chart axes labels (advanced mode). Default: ["Tatooine", "Coruscant", "Kashyyyk", "Dagobah"]
-- datasets: object[] - Dataset objects (advanced mode). Default: [{label:"Millenium Falcon",backgroundColor:["#055B90","#69C3FA","#099AF2","#E2F3FE"],data:[100,5,70,20]}]
-- options: object - Chart.js options (advanced mode)
-- data: object[] - Data array (guided mode). Default: null
+- dataType: string - Sets the configuration mode. **CRITICAL** Always set to "advanced".
+- labels: binded<string[]> - X-axis labels. advanced mode only.
+- datasets: binded<object[]> - Dataset objects with label, backgroundColor, borderColor, data keys. advanced mode only.
+- options: binded<object> - Advanced chart options. advanced mode only.
 - xAxisTitle: string - Category labels field name (guided mode)
 - dataXField: string - Category data field path (guided mode). Default: null
 - dataXFieldProperty: string - Nested category data path (guided mode). Default: null
@@ -51,3 +50,7 @@ Events:
   Description: Triggered when user clicks on the chart, providing click position and data points information
 
 Variables: none
+
+Note: 
+- To make graph responsive: First, always set these options : responsive: true and maintainAspectRatio: false, Second, set min-width: 0px to direct parent container.
+- **IMPORTANT** labels, datasets, options and data properties HAVE TO BE BINDED data
